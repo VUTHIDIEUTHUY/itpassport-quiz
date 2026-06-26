@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ITパスポート 過去問ドリル 🎯</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Meiryo,sans-serif;background:#f0f4f8;min-height:100vh;color:#333}
+.hdr{background:linear-gradient(135deg,#1e3a5f,#2d6a9f);color:#fff;padding:18px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.hdr h1{font-size:1.7em;font-weight:800}
+.hdr p{font-size:.85em;opacity:.85;margin-top:5px}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+.stats{background:#fff;border-radius:12px;padding:14px 20px;display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.stat .v{font-size:1.6em;font-weight:800;color:#1e3a5f}
+.stat .l{font-size:.72em;color:#888}
+.pbar{background:#e0e0e0;border-radius:8px;height:9px;overflow:hidden;margin-bottom:16px}
+.pfill{background:linear-gradient(90deg,#2d6a9f,#4CAF50);height:100%;transition:.4s;border-radius:8px}
+.sec{font-size:1em;font-weight:700;color:#1e3a5f;margin:14px 0 8px;padding-bottom:6px;border-bottom:2px solid #e0e0e0}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.fb{padding:6px 14px;border-radius:20px;border:2px solid #ddd;background:#fff;cursor:pointer;font-size:.8em;transition:.2s}
+.fb.on{border-color:#2d6a9f;background:#e8f0fb;color:#1e3a5f;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.card{background:#fff;border-radius:12px;padding:18px;text-align:center;cursor:pointer;transition:.3s;box-shadow:0 2px 8px rgba(0,0,0,.08);border:2px solid transparent}
+.card:hover{border-color:#2d6a9f;transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.13)}
+.card .ic{font-size:2em;margin-bottom:6px}
+.card h3{font-size:.95em;color:#1e3a5f;font-weight:700}
+.card p{font-size:.78em;color:#666;margin-top:3px}
+.qcard{background:#fff;border-radius:14px;padding:24px;box-shadow:0 4px 14px rgba(0,0,0,.1);margin-bottom:16px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.bdg{font-size:.7em;padding:3px 9px;border-radius:20px;font-weight:700}
+.by{background:#e8f0fb;color:#1e3a5f}
+.bc{background:#fff3e0;color:#e65100}
+.bs{background:#e8f5e9;color:#2e7d32}
+.qno{font-size:.82em;color:#aaa;margin-bottom:6px}
+.qtxt{font-size:1em;line-height:1.75;margin-bottom:18px;color:#111;white-space:pre-wrap}
+.choices{display:flex;flex-direction:column;gap:9px}
+.cb{padding:13px 16px;border:2px solid #ddd;background:#fafafa;border-radius:10px;cursor:pointer;text-align:left;font-size:.92em;transition:.22s;line-height:1.5}
+.cb:hover:not(:disabled){border-color:#2d6a9f;background:#e8f0fb;transform:translateX(3px)}
+.cb.ok{background:#e8f5e9;border-color:#4CAF50;color:#1b5e20;font-weight:700}
+.cb.ng{background:#ffebee;border-color:#f44336;color:#b71c1c}
+.cb:disabled{cursor:default}
+.albl{font-size:.72em;font-weight:700;float:right;padding:2px 8px;border-radius:8px;margin-left:6px}
+.ok2{background:#4CAF50;color:#fff}
+.ng2{background:#f44336;color:#fff}
+.exp{background:#f8f9fa;border-left:4px solid #2d6a9f;padding:12px 16px;border-radius:0 10px 10px 0;margin-top:14px;font-size:.87em;line-height:1.7;display:none}
+.exp.show{display:block}
+.navb{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn{padding:10px 22px;border:none;border-radius:10px;cursor:pointer;font-size:.9em;font-weight:700;transition:.22s}
+.bp{background:linear-gradient(135deg,#1e3a5f,#2d6a9f);color:#fff}
+.bp:hover{opacity:.88;transform:translateY(-1px)}
+.bs2{background:#f0f4f8;color:#1e3a5f;border:2px solid #2d6a9f}
+.bs2:hover{background:#e8f0fb}
+.res{background:#fff;border-radius:14px;padding:28px;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.1)}
+.rscore{font-size:3em;font-weight:900;color:#1e3a5f;margin:8px 0}
+.rgrade{font-size:1.1em;padding:7px 18px;border-radius:20px;display:inline-block;margin:6px 0}
+.ga{background:#e8f5e9;color:#2e7d32}
+.gb{background:#e8f0fb;color:#1e3a5f}
+.gc{background:#fff3e0;color:#e65100}
+.gd{background:#ffebee;color:#b71c1c}
+.cbar{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:.82em}
+.cfill{height:18px;border-radius:4px;min-width:4px;transition:1s}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}
+.info-card{border-radius:10px;padding:14px;font-size:.82em;line-height:1.6}
+.ic-s{background:#fff3e0;border:1px solid #ffcc80}
+.ic-m{background:#e8f5e9;border:1px solid #a5d6a7}
+.ic-t{background:#e8f0fb;border:1px solid #90caf9}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <h1>🎯 ITパスポート 過去問ドリル</h1>
+  <p>令和8〜5年度 実際の過去問 ＋ シラバス6.3全分野対応 ｜ 80問収録</p>
+</div>
+<div class="wrap" id="app"></div>
+<script>
+const Q=[{"id":1,"year":"令和8年度","no":1,"category":"ストラテジ系","subcategory":"法務・知的財産権","q":"生成AIを用いた生成物の取扱いに関して，既存の著作物の著作権者から許諾を得ることが必要となる可能性のあるものだけを，全て挙げたものはどれか。\n\na. 好みのアーティストの楽曲に似た音楽が得られるように生成AIを用いて楽曲を生成し，その楽曲をインターネット上にアップロードし，無料で公開した。\nb. 好みのアーティストの楽曲に似た音楽が得られるように生成AIを用いて楽曲を生成し，その楽曲を自分のPC上に保管し，個人で視聴した。\nc. 生成AIで音楽を生成したところ，偶然好みのアーティストの楽曲に似た音楽が生成できたので，自分のPC上に保管し，個人で視聴した。","choices":["a","a，b","a，b，c","b，c"],"answer":0,"explanation":"著作権侵害には類似性＋依拠性の両方が必要。aは意図的に依拠してネット公開→許諾必要。bは私的使用→許諾不要。cは偶然＝依拠性なし＋私的使用→許諾不要。正解はaのみ。"},{"id":2,"year":"令和8年度","no":2,"category":"ストラテジ系","subcategory":"システム戦略・業務プロセス","q":"BYODに関する記述として，適切なものはどれか。","choices":["企業の業務に，従業員が私物の携帯情報端末を許可を得た上で利用すること","企業の業務の定型的な作業をソフトウェアのロボットで効率化すること","企業の業務の流れを分析し，継続的に改善，最適化していくこと","企業の業務の流れを見直し，抜本的にデザインし直すこと"],"answer":0,"explanation":"BYOD(Bring Your Own Device)は従業員が私物端末を業務に使用すること。イ=RPA、ウ=BPM、エ=BPR。"},{"id":3,"year":"令和8年度","no":4,"category":"ストラテジ系","subcategory":"技術戦略マネジメント","q":"特定の目的の達成や課題の解決をテーマとして，ソフトウェアの開発者や企画者などが短期集中的にアイディアを出し合い，ソフトウェアの開発などの共同作業を行い，成果を競い合うイベントはどれか。","choices":["トレードフェア","ハッカソン","パネルディスカッション","レセプション"],"answer":1,"explanation":"ハッカソン(Hackathon)はhack+marathonの造語。短期間で開発し成果を競うイベント。"},{"id":4,"year":"令和8年度","no":5,"category":"ストラテジ系","subcategory":"法務・知的財産権","q":"インターネットを利用した企業広告に関する新たなビジネスモデルを知的財産として出願し，コンピュータシステムとして実現した。このビジネスモデルを知的財産として，保護する法律はどれか。","choices":["意匠法","実用新案法","著作権法","特許法"],"answer":3,"explanation":"ビジネスモデル特許はソフトウェア関連発明として特許法で保護。コンピュータで具体的に実現されている必要あり。意匠法=デザイン、実用新案法=考案、著作権法=創作物。"},{"id":5,"year":"令和8年度","no":3,"category":"ストラテジ系","subcategory":"企業活動・意思決定","q":"マクシミン戦略とは，戦略ごとに予想される利益の最小値が最も大きくなるように戦略を採用する理論である。投資戦略aの利益が（市況悪化:-15, 市況好転:20），投資戦略bの利益が（市況悪化:0, 市況好転:5）のとき，マクシミン戦略を採り，かつ市況が好転した場合の利益はどれか。","choices":["-15","0","5","20"],"answer":2,"explanation":"各戦略の最小値：a=-15、b=0。マクシミン戦略は最小値が最大の戦略b(最小値0)を選ぶ。bで市況好転=5。"},{"id":6,"year":"令和7年度","no":1,"category":"ストラテジ系","subcategory":"法務・労働関連法規","q":"A社がB社に作業の一部を請負契約で委託している。偽装請負とみなされる状態だけを全て挙げたものはどれか。\n\na. B社の従業員がA社内において，A社の責任者の指揮命令の下で作業を行っている。\nb. B社の従業員がA社内において，B社の責任者の指揮命令の下で作業を行っている。\nc. B社の従業員がB社内において，A社の責任者の指揮命令の下で作業を行っている。","choices":["a","a，b","a，c","b，c"],"answer":2,"explanation":"偽装請負=発注者(A社)が受託者(B社)従業員に直接指揮命令する状態(場所問わず)。a・cはA社が指揮命令→偽装請負。bはB社が指揮命令→適法。"},{"id":7,"year":"令和7年度","no":10,"category":"ストラテジ系","subcategory":"ビジネスシステム・AI","q":"生成AIにおいて，もっともらしいが事実とは異なる内容が出力されることを表す用語として，最も適切なものはどれか。","choices":["エコーチェンバー","シンギュラリティ","ディープフェイク","ハルシネーション"],"answer":3,"explanation":"ハルシネーション(Hallucination=幻覚)はAIが事実と異なる情報をもっともらしく出力する現象。エコーチェンバー=意見増幅の閉鎖環境、シンギュラリティ=AIが人間を超える転換点、ディープフェイク=精巧な偽メディア。"},{"id":8,"year":"令和6年度","no":1,"category":"ストラテジ系","subcategory":"経営戦略・マーケティング","q":"マーケティングオートメーション(MA)に関する記述として，最も適切なものはどれか。","choices":["企業内に蓄積された大量のデータを分析して，事業戦略などに有効活用する。","小売業やサービス業において，販売した商品単位の情報の収集・蓄積及び分析を行う。","これまで人間が手作業で行っていた定型業務を，AIや機械学習などを取り入れたソフトウェアのロボットが代行することによって自動化や効率化を図る。","見込み顧客の抽出，獲得，育成などの営業活動を効率化する。"],"answer":3,"explanation":"MAは見込み顧客管理・育成などのマーケティング活動をITで自動化。ア=データマイニング、イ=POS、ウ=RPA。"},{"id":9,"year":"令和5年度","no":1,"category":"ストラテジ系","subcategory":"技術戦略マネジメント","q":"新しいビジネスモデルや製品を開発する際に，仮説に基づいて実用に向けた最小限のサービスや製品を作り，短期に顧客価値の検証を繰り返すことによって，新規事業などを成功させる可能性を高める手法を示す用語はどれか。","choices":["カニバリゼーション","業務モデリング","デジタルトランスフォーメーション","リーンスタートアップ"],"answer":3,"explanation":"リーンスタートアップはMVP(最小限の製品)を早期に作り、構築→計測→学習ループを繰り返す手法。カニバリゼーション=自社製品の共食い、DX=デジタル変革。"},{"id":10,"year":"一般知識","no":1,"category":"マネジメント系","subcategory":"プロジェクトマネジメント","q":"プロジェクトマネジメントにおいて，WBSで分解された最小単位の作業要素を何というか。","choices":["マイルストーン","ワークパッケージ","ガントチャート","クリティカルパス"],"answer":1,"explanation":"WBS(Work Breakdown Structure)の最小単位はワークパッケージ。マイルストーン=重要な節目、ガントチャート=スケジュール管理ツール、クリティカルパス=最長経路。"},{"id":11,"year":"一般知識","no":2,"category":"マネジメント系","subcategory":"プロジェクトマネジメント","q":"プロジェクトの作業をネットワーク図で表現し，最も時間がかかる経路を特定してプロジェクトの最短完了時間を求める手法はどれか。","choices":["PERT・クリティカルパス法","ガントチャート","バランスドスコアカード","PDCA"],"answer":0,"explanation":"PERTとクリティカルパス法は作業のネットワーク図から最長経路(クリティカルパス)を特定し最短完了時間を求める手法。"},{"id":12,"year":"一般知識","no":3,"category":"マネジメント系","subcategory":"システム開発","q":"システム開発において，要件定義→設計→実装→テスト→運用という順序で各工程を順番に進めていく開発手法はどれか。","choices":["ウォーターフォールモデル","スパイラルモデル","アジャイル開発","プロトタイピング"],"answer":0,"explanation":"ウォーターフォールモデルは各工程を順番に一方向に進める手法。前工程完了後に次工程へ。スパイラル=繰り返し、アジャイル=短いイテレーション、プロトタイピング=試作品先行。"},{"id":13,"year":"一般知識","no":4,"category":"マネジメント系","subcategory":"システム開発","q":"アジャイル開発の手法の一つで，スプリントと呼ばれる短い開発サイクルを繰り返しながら機能を追加していく手法はどれか。","choices":["スクラム","ウォーターフォール","V字モデル","RAD"],"answer":0,"explanation":"スクラムはアジャイル開発フレームワーク。スプリント(1〜4週間)を繰り返し製品を完成させる。デイリースクラム、スプリントレビュー等の儀式がある。"},{"id":14,"year":"一般知識","no":5,"category":"マネジメント系","subcategory":"サービスマネジメント","q":"ITサービスマネジメントのベストプラクティスをまとめたフレームワークはどれか。","choices":["ITIL","COBIT","ISO 9001","PMBOK"],"answer":0,"explanation":"ITIL(IT Infrastructure Library)はITサービスマネジメントのベストプラクティス集。COBIT=IT統制、ISO 9001=品質管理、PMBOK=プロジェクト管理。"},{"id":15,"year":"一般知識","no":6,"category":"マネジメント系","subcategory":"システム監査","q":"システム監査において，監査対象から独立した立場で客観的に評価を行う人物はどれか。","choices":["システム監査人","プロジェクトマネージャ","システムアナリスト","ITストラテジスト"],"answer":0,"explanation":"システム監査人は監査対象から独立した立場でシステムの信頼性・安全性・効率性を評価。独立性・客観性が重要な要件。"},{"id":16,"year":"一般知識","no":7,"category":"マネジメント系","subcategory":"品質管理","q":"PDCAサイクルの各段階の正しい順序はどれか。","choices":["Plan→Do→Check→Act","Plan→Act→Do→Check","Do→Plan→Check→Act","Check→Plan→Do→Act"],"answer":0,"explanation":"PDCAは品質管理の基本サイクル。Plan(計画)→Do(実行)→Check(評価)→Act(改善)の順で繰り返す。デミングサイクルとも呼ばれる。"},{"id":17,"year":"一般知識","no":8,"category":"マネジメント系","subcategory":"システム開発","q":"ソフトウェアテストにおいて，プログラムの内部構造を考慮せず，入力と出力の関係のみに注目してテストする手法はどれか。","choices":["ブラックボックステスト","ホワイトボックステスト","統合テスト","回帰テスト"],"answer":0,"explanation":"ブラックボックステストは内部構造を考慮せず仕様通りの動作を確認。ホワイトボックス=コード内部確認。統合テスト=複数モジュール結合。回帰テスト=変更後の既存機能確認。"},{"id":18,"year":"一般知識","no":9,"category":"マネジメント系","subcategory":"プロジェクトマネジメント","q":"プロジェクトのスケジュール管理で使用されるガントチャートの説明として，最も適切なものはどれか。","choices":["横軸に時間，縦軸に作業項目を配置し，作業の期間を棒グラフで表した図","作業の依存関係をネットワーク図で表した図","作業の優先度と重要度を4象限マトリックスで表した図","各作業担当者の負荷を積み上げグラフで表した図"],"answer":0,"explanation":"ガントチャートは縦軸に作業一覧、横軸に時間軸を置き、各作業の期間を棒グラフで表現。進捗管理に視覚的に優れる。"},{"id":19,"year":"一般知識","no":10,"category":"マネジメント系","subcategory":"サービスマネジメント","q":"SLA(サービスレベルアグリーメント)の説明として，最も適切なものはどれか。","choices":["ITサービスの提供者と利用者の間で合意されたサービス品質の水準と内容を規定した契約","システム開発の要件と仕様を文書化した契約書","システムの保守・運用作業の手順書","ITサービスの月次費用の明細書"],"answer":0,"explanation":"SLAはサービス提供者と顧客間でサービス品質(稼働率・応答時間等)を数値目標として合意した契約。未達の場合のペナルティも定める。"},{"id":20,"year":"一般知識","no":11,"category":"マネジメント系","subcategory":"システム開発","q":"DevOpsの説明として，最も適切なものはどれか。","choices":["開発(Development)と運用(Operations)が連携して継続的にシステムを改善・デリバリーする手法","開発チームと品質保証チームが協力してテストを行う手法","開発工程を厳格に管理してウォーターフォールで進める手法","外部ベンダに開発と運用を一括委託する手法"],"answer":0,"explanation":"DevOpsは開発(Dev)と運用(Ops)の壁を取り除き、CI/CD(継続的インテグレーション/デリバリー)を実現して高頻度リリースと品質向上を目指す考え方・文化・実践。"},{"id":21,"year":"一般知識","no":12,"category":"テクノロジ系","subcategory":"コンピュータ構成・ハードウェア","q":"CPUが1秒間に実行できる命令の数(百万単位)を表す単位はどれか。","choices":["MIPS","MHz","GB","bps"],"answer":0,"explanation":"MIPS(Million Instructions Per Second)はCPU性能の指標。MHz=クロック周波数、GB=記憶容量、bps=データ転送速度。"},{"id":22,"year":"一般知識","no":13,"category":"テクノロジ系","subcategory":"コンピュータ構成・ハードウェア","q":"CPUで複数の命令を段階に分けて同時並行的に処理する技術はどれか。","choices":["パイプライン処理","キャッシュメモリ","マルチコア","RAID"],"answer":0,"explanation":"パイプライン処理はCPU内で命令をフェッチ→デコード→実行→書込みの段階に分けて並列処理。キャッシュ=高速メモリ、マルチコア=複数コア搭載、RAID=ディスク冗長化。"},{"id":23,"year":"一般知識","no":14,"category":"テクノロジ系","subcategory":"コンピュータ構成・ハードウェア","q":"2進数の「1010」を10進数に変換した値はどれか。","choices":["10","8","12","16"],"answer":0,"explanation":"1010(2)=1×2³+0×2²+1×2¹+0×2⁰=8+0+2+0=10。"},{"id":24,"year":"一般知識","no":15,"category":"テクノロジ系","subcategory":"コンピュータ構成・ハードウェア","q":"16進数の「FF」を10進数に変換した値はどれか。","choices":["255","256","254","128"],"answer":0,"explanation":"FF(16)=15×16+15=240+15=255。16進数でF=15。"},{"id":25,"year":"一般知識","no":16,"category":"テクノロジ系","subcategory":"コンピュータ構成・ハードウェア","q":"補助記憶装置として，正しいものはどれか。","choices":["HDD・SSD・フラッシュメモリなど電源を切ってもデータが保持される不揮発性の記憶装置","CPUが直接アクセスして演算を行う高速な揮発性メモリ","CPUと主記憶の速度差を補う高速小容量のメモリ","入出力データを一時的に保持するバッファ"],"answer":0,"explanation":"補助記憶装置(二次記憶)はHDD・SSD・USB等の不揮発性・大容量・低速な記憶装置。主記憶(RAM)はCPUが直接アクセスする揮発性メモリ。"},{"id":26,"year":"一般知識","no":17,"category":"テクノロジ系","subcategory":"システム構成・可用性","q":"MTBFが100時間，MTTRが20時間のシステムの稼働率はどれか。","choices":["約0.833(83.3%)","0.75(75%)","0.9(90%)","0.8(80%)"],"answer":0,"explanation":"稼働率=MTBF÷(MTBF+MTTR)=100÷(100+20)=100÷120≒0.833。MTBF=平均故障間隔、MTTR=平均修復時間。"},{"id":27,"year":"一般知識","no":18,"category":"テクノロジ系","subcategory":"システム構成・可用性","q":"二重化システムにおいて，一方が障害時に自動的にもう一方に切り替わる構成はどれか。","choices":["ホットスタンバイ(フェイルオーバー)","コールドスタンバイ","ロードバランシング","シンプレックス"],"answer":0,"explanation":"ホットスタンバイは待機系が常時動作状態で障害時に自動切り替え。コールドスタンバイ=手動起動、ロードバランシング=負荷分散。"},{"id":28,"year":"一般知識","no":19,"category":"テクノロジ系","subcategory":"データベース","q":"リレーショナルデータベースにおいて，表と表を共通の列で結合して一つの表にする操作はどれか。","choices":["結合(JOIN)","射影(PROJECT)","選択(SELECT)","ビュー(VIEW)"],"answer":0,"explanation":"結合(JOIN)は複数テーブルを共通の列で結びつける操作。射影=列の選択、選択=行の絞り込み、ビュー=仮想テーブル。"},{"id":29,"year":"一般知識","no":20,"category":"テクノロジ系","subcategory":"データベース","q":"SQLにおいて，テーブルからデータを取得するためのDML文はどれか。","choices":["SELECT","INSERT","UPDATE","DELETE"],"answer":0,"explanation":"SELECT文はテーブルからデータを取得するDML。INSERT=行追加、UPDATE=行更新、DELETE=行削除。"},{"id":30,"year":"一般知識","no":21,"category":"テクノロジ系","subcategory":"データベース","q":"データベースのトランザクション管理において，「トランザクションは完全に完了するか，全く実行されなかった状態のどちらかになる」というACID特性はどれか。","choices":["原子性(Atomicity)","一貫性(Consistency)","独立性(Isolation)","耐久性(Durability)"],"answer":0,"explanation":"ACID特性：A(原子性)=ALL or Nothing、C(一貫性)=DB制約を常に満たす、I(独立性)=トランザクション間の独立、D(耐久性)=コミット後は永続保存。"},{"id":31,"year":"一般知識","no":22,"category":"テクノロジ系","subcategory":"データベース","q":"データベースの障害回復において，ログファイルを使ってトランザクションの処理をやり直す操作はどれか。","choices":["ロールフォワード","ロールバック","コミット","チェックポイント"],"answer":0,"explanation":"ロールフォワードはバックアップ時点以降のトランザクションをログで再実行し最新状態に回復。ロールバック=トランザクションを取り消す。"},{"id":32,"year":"一般知識","no":23,"category":"テクノロジ系","subcategory":"ネットワーク","q":"IPアドレスとMACアドレスを対応付けるプロトコルはどれか。","choices":["ARP","DHCP","DNS","NAT"],"answer":0,"explanation":"ARP(Address Resolution Protocol)はIPアドレスからMACアドレスを解決。DHCP=IPアドレス動的割り当て、DNS=ドメイン名⇔IP変換、NAT=プライベートIP⇔グローバルIP変換。"},{"id":33,"year":"一般知識","no":24,"category":"テクノロジ系","subcategory":"ネットワーク","q":"ドメイン名をIPアドレスに変換するシステムはどれか。","choices":["DNS(Domain Name System)","DHCP","NAT","SMTP"],"answer":0,"explanation":"DNS(Domain Name System)はドメイン名(example.com)をIPアドレスに変換するシステム。"},{"id":34,"year":"一般知識","no":25,"category":"テクノロジ系","subcategory":"ネットワーク","q":"IPアドレスを参照してパケットの転送経路を決定するネットワーク機器はどれか。","choices":["ルータ","スイッチ(L2)","ハブ","リピータ"],"answer":0,"explanation":"ルータはIPアドレスを参照しパケットの最適経路を決定するL3機器。スイッチ=MACアドレスで転送(L2)、ハブ=全ポートに転送、リピータ=信号増幅。"},{"id":35,"year":"一般知識","no":26,"category":"テクノロジ系","subcategory":"ネットワーク","q":"電子メールの送信に使用されるプロトコルはどれか。","choices":["SMTP","POP3","IMAP","FTP"],"answer":0,"explanation":"SMTP(Simple Mail Transfer Protocol)はメール送信プロトコル。POP3=メール受信(ダウンロード)、IMAP4=メール受信(サーバ管理)、FTP=ファイル転送。"},{"id":36,"year":"一般知識","no":27,"category":"テクノロジ系","subcategory":"ネットワーク","q":"HTTPSで使用される，データを暗号化してWebサイトとブラウザ間の通信を保護するプロトコルはどれか。","choices":["TLS(Transport Layer Security)","SSH","IPSec","WPA3"],"answer":0,"explanation":"TLSはトランスポート層でデータを暗号化するプロトコル。HTTPSはHTTP+TLS。SSHはリモートログイン暗号化、IPSecはネットワーク層暗号化。"},{"id":37,"year":"一般知識","no":28,"category":"テクノロジ系","subcategory":"ネットワーク","q":"インターネット上に暗号化した仮想の専用通信路を設けて安全にデータを送受信する技術はどれか。","choices":["VPN(Virtual Private Network)","SSL","WPA3","NAT"],"answer":0,"explanation":"VPNはインターネット上に暗号化トンネルを構築し仮想的な専用ネットワークを実現。テレワークや拠点間接続に活用。"},{"id":38,"year":"一般知識","no":29,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"情報セキュリティの3要素(CIA)のうち，「正当な権限を持つ者だけが情報にアクセスできること」を表す概念はどれか。","choices":["機密性(Confidentiality)","完全性(Integrity)","可用性(Availability)","真正性(Authenticity)"],"answer":0,"explanation":"CIA：機密性=権限者のみアクセス可、完全性=情報の正確性・改ざんなし、可用性=必要時に利用できる。この3つがCIAトライアド。"},{"id":39,"year":"一般知識","no":30,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"ランサムウェアの説明として，最も適切なものはどれか。","choices":["ファイルを暗号化し，解除のために身代金を要求するマルウェア","ユーザの行動を監視してプライバシー情報を収集するソフトウェア","正規ソフトウェアに見せかけて悪意のある処理を行うプログラム","ネットワーク上を自己増殖しながら感染拡大するプログラム"],"answer":0,"explanation":"ランサムウェア(Ransomware)はファイルを暗号化し復号と引き換えに身代金を要求するマルウェア。イ=スパイウェア、ウ=トロイの木馬、エ=ワーム。"},{"id":40,"year":"一般知識","no":31,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"Webサイトへの攻撃で，悪意のあるSQLコマンドをWebフォームに入力してデータベースを不正操作する攻撃はどれか。","choices":["SQLインジェクション","クロスサイトスクリプティング(XSS)","フィッシング","ブルートフォース攻撃"],"answer":0,"explanation":"SQLインジェクションはWebフォームに悪意あるSQL文を入力しDBを不正操作する攻撃。XSS=悪意あるスクリプトをユーザに実行させる、フィッシング=偽サイトで情報詐取、ブルートフォース=総当たり攻撃。"},{"id":41,"year":"一般知識","no":32,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"公開鍵暗号方式において，送信者がデータを暗号化するために使用する鍵はどれか。","choices":["受信者の公開鍵","受信者の秘密鍵","送信者の公開鍵","送信者の秘密鍵"],"answer":0,"explanation":"公開鍵暗号：暗号化=受信者の公開鍵、復号=受信者の秘密鍵。デジタル署名は逆：署名=送信者の秘密鍵、検証=送信者の公開鍵。"},{"id":42,"year":"一般知識","no":33,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"多要素認証(MFA)で組み合わせる認証要素の種類として，正しいものはどれか。","choices":["知識(パスワード)・所持(スマートフォン)・生体(指紋)の3種類","パスワードとPINの2種類","IDとパスワードの組み合わせ","生体認証のみ"],"answer":0,"explanation":"MFAは知識(パスワード・PIN)・所持(スマートフォン・ICカード)・生体(指紋・顔)の複数要素を組み合わせる。IDとパスワードだけは単要素認証。"},{"id":43,"year":"一般知識","no":34,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"ファイアウォールの機能として，最も適切なものはどれか。","choices":["ネットワークのアクセスを制御し，不正な通信を遮断する","データを暗号化して安全に通信する","ウイルスを検知して除去する","ネットワークの通信速度を向上させる"],"answer":0,"explanation":"ファイアウォールはIPアドレスやポート番号等のルールでネットワーク通信を制御し不正アクセスを防ぐ。イ=VPN/SSL、ウ=ウイルス対策ソフト、エ=ロードバランサ等。"},{"id":44,"year":"一般知識","no":35,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"フィッシング詐欺の説明として，最も適切なものはどれか。","choices":["実在する企業等を装った偽メール・偽サイトで個人情報を詐取する手口","プログラムの脆弱性を突いてシステムに不正侵入する攻撃","ネットワーク上のパケットを盗み見る盗聴行為","多数のPCから一斉に攻撃してサーバを停止させる攻撃"],"answer":0,"explanation":"フィッシング(Phishing)は銀行・EC等を装った偽メール・偽サイトでID/PW・クレカ情報を詐取。イ=不正侵入、ウ=スニッフィング、エ=DDoS攻撃。"},{"id":45,"year":"一般知識","no":36,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"デジタル署名の目的として，最も適切なものはどれか。","choices":["送信元の真正性の確認と改ざんの検知","データを暗号化して第三者に読まれないようにする","データの送信速度を向上させる","認証局(CA)がサイトの身元を保証する"],"answer":0,"explanation":"デジタル署名は送信者の秘密鍵で署名し受信者が公開鍵で検証することで、(1)なりすまし防止と(2)改ざん検知を実現する。"},{"id":46,"year":"一般知識","no":37,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"ソーシャルエンジニアリングの説明として，最も適切なものはどれか。","choices":["人間の心理や行動の隙を突いてパスワード等の機密情報を入手する手法","ネットワーク機器の脆弱性を悪用してシステムに侵入する手法","大量のデータを送りつけてサービスを停止させる攻撃","正規ソフトウェアに見せかけてマルウェアをインストールさせる手法"],"answer":0,"explanation":"ソーシャルエンジニアリングは技術的手段を使わず人間の心理的弱点を悪用。例：なりすまし電話、ショルダーハッキング、スキャベンジング(ゴミ箱漁り)。"},{"id":47,"year":"一般知識","no":38,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"DoS攻撃(サービス拒否攻撃)の説明として，最も適切なものはどれか。","choices":["大量のリクエストを送りつけてサーバのリソースを枯渇させ正常なサービス提供を妨害する攻撃","システムに不正侵入してデータを盗む攻撃","ウイルスに感染したPCを使って他のPCに感染を広める攻撃","偽サイトに誘導してアカウント情報を騙し取る攻撃"],"answer":0,"explanation":"DoS(Denial of Service)攻撃はサーバに大量リクエストを送りサービスを停止させる。複数PCから行うのがDDoS(Distributed DoS)。"},{"id":48,"year":"一般知識","no":39,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"Webアプリケーションへの不正なHTTPリクエスト(SQLインジェクション・XSS等)を検知・遮断するのはどれか。","choices":["WAF(Web Application Firewall)","通常のファイアウォール","IDS","VPN"],"answer":0,"explanation":"WAFはHTTP/HTTPSのアプリケーション層でWebアプリへの攻撃を検知・防御。通常のファイアウォールはネットワーク/トランスポート層で動作。IDSは検知のみ。"},{"id":49,"year":"一般知識","no":40,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"IDSとIPSの違いとして，最も適切なものはどれか。","choices":["IDSは不正アクセスを検知するだけだが，IPSは検知後に自動的に遮断する","IDSはログを記録し，IPSはログを記録しない","IDSは外部からの攻撃を検知し，IPSは内部からの攻撃を検知する","IDSはリアルタイム動作で，IPSはバッチ処理で動作する"],"answer":0,"explanation":"IDS(Intrusion Detection System)=不正侵入を検知して管理者に通知。IPS(Intrusion Prevention System)=検知後に自動で通信を遮断。IPSはIDSの機能を含む。"},{"id":50,"year":"一般知識","no":41,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"情報セキュリティマネジメントシステム(ISMS)の国際標準規格はどれか。","choices":["ISO/IEC 27001","ISO 9001","ISO 14001","ISO/IEC 20000"],"answer":0,"explanation":"ISO/IEC 27001はISMSの要求事項を規定した国際規格。ISO 9001=品質マネジメント、ISO 14001=環境マネジメント、ISO/IEC 20000=ITサービスマネジメント。"},{"id":51,"year":"一般知識","no":42,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"ゼロトラストセキュリティの基本概念として，最も適切なものはどれか。","choices":["社内外問わずすべてのアクセスを信頼しないことを前提に認証・認可を行う","社内ネットワークは信頼し，社外からのアクセスのみを制限する","境界型セキュリティを強化して外部からの侵入を防ぐ","エンドポイントのみを保護する"],"answer":0,"explanation":"ゼロトラストは「何も信頼しない」を前提に、社内外問わずすべてのアクセスで認証・認可・検証を行うセキュリティ概念。テレワーク・クラウド普及で重要性が増している。"},{"id":52,"year":"一般知識","no":43,"category":"テクノロジ系","subcategory":"AI・データ分析","q":"機械学習において，大量のラベル付きデータを使ってモデルを訓練する学習方式はどれか。","choices":["教師あり学習","教師なし学習","強化学習","転移学習"],"answer":0,"explanation":"教師あり学習は入力と正解ラベルのペアデータでモデルを訓練。教師なし学習=ラベルなしでパターン発見。強化学習=試行錯誤で報酬最大化。転移学習=学習済みモデルを別タスクに応用。"},{"id":53,"year":"一般知識","no":44,"category":"テクノロジ系","subcategory":"AI・データ分析","q":"多層のニューラルネットワークを用いて大量データからパターンを自動学習する機械学習手法はどれか。","choices":["ディープラーニング(深層学習)","決定木","サポートベクターマシン","ナイーブベイズ"],"answer":0,"explanation":"ディープラーニングは入力層・隠れ層(多層)・出力層から成る深いニューラルネットワークで特徴を自動抽出。画像認識・音声認識・自然言語処理等で高い性能を発揮。"},{"id":54,"year":"一般知識","no":45,"category":"テクノロジ系","subcategory":"クラウドコンピューティング","q":"クラウドサービスのサービスモデルで，仮想マシンやストレージなどのインフラを提供するサービスはどれか。","choices":["IaaS(Infrastructure as a Service)","PaaS(Platform as a Service)","SaaS(Software as a Service)","FaaS(Function as a Service)"],"answer":0,"explanation":"IaaSはVM・ストレージ・ネットワーク等インフラを提供(例：AWS EC2)。PaaS=開発プラットフォーム(Google App Engine)。SaaS=アプリケーション提供(Gmail)。"},{"id":55,"year":"一般知識","no":46,"category":"テクノロジ系","subcategory":"アルゴリズム","q":"データを整列する際，隣接する要素を比較して順序が逆なら交換する操作を繰り返すアルゴリズムはどれか。","choices":["バブルソート","クイックソート","選択ソート","挿入ソート"],"answer":0,"explanation":"バブルソートは隣接要素を比較・交換を繰り返す。O(n²)の時間計算量。クイックソート=ピボットで分割O(nlogn)、選択ソート=最小値選択、挿入ソート=適切な位置に挿入。"},{"id":56,"year":"一般知識","no":47,"category":"テクノロジ系","subcategory":"ソフトウェア・OS","q":"OSの機能で，複数のプロセスにCPU使用権を割り当てる機能はどれか。","choices":["スケジューリング","メモリ管理","デバイス管理","ファイル管理"],"answer":0,"explanation":"スケジューリングはCPU使用権を複数プロセスに割り当てる機能(ラウンドロビン、優先度ベース等)。メモリ管理=メモリ空間の割り当て、デバイス管理=I/O制御。"},{"id":57,"year":"一般知識","no":48,"category":"テクノロジ系","subcategory":"ソフトウェア","q":"ソースコードが公開され，誰でも自由に利用・改変・再配布できるソフトウェアはどれか。","choices":["オープンソースソフトウェア(OSS)","フリーウェア","シェアウェア","プロプライエタリソフトウェア"],"answer":0,"explanation":"OSSはソースコードが公開され定められたライセンス条件下で自由に使用・改変・配布できる。Linux・Apache・MySQL・Pythonが代表例。フリーウェアは無料だがソース非公開のものもある。"},{"id":58,"year":"一般知識","no":49,"category":"ストラテジ系","subcategory":"経営戦略・分析手法","q":"SWOT分析において，外部環境のプラス要因を表す要素はどれか。","choices":["機会(Opportunity)","強み(Strength)","脅威(Threat)","弱み(Weakness)"],"answer":0,"explanation":"SWOT：Strength(強み)・Weakness(弱み)=内部環境、Opportunity(機会)・Threat(脅威)=外部環境。機会は外部のプラス要因。"},{"id":59,"year":"一般知識","no":50,"category":"ストラテジ系","subcategory":"経営戦略・分析手法","q":"バランスドスコアカード(BSC)で使用される4つの視点の正しい組み合わせはどれか。","choices":["財務・顧客・内部プロセス・学習と成長","財務・人事・マーケティング・オペレーション","品質・コスト・納期・安全","計画・実行・評価・改善"],"answer":0,"explanation":"BSCは財務の視点、顧客の視点、内部プロセスの視点、学習と成長の視点の4視点から戦略を管理するフレームワーク。"},{"id":60,"year":"一般知識","no":51,"category":"ストラテジ系","subcategory":"経営戦略","q":"PPM(プロダクト・ポートフォリオ・マネジメント)の4象限のうち，市場成長率が高く，市場シェアが高い事業を表すのはどれか。","choices":["スター","問題児","金のなる木","負け犬"],"answer":0,"explanation":"PPM：スター(高成長・高シェア)=競争優位、問題児(高成長・低シェア)=投資検討、金のなる木(低成長・高シェア)=利益源、負け犬(低成長・低シェア)=撤退候補。"},{"id":61,"year":"一般知識","no":52,"category":"ストラテジ系","subcategory":"DX・IoT","q":"IoT(Internet of Things)の説明として，最も適切なものはどれか。","choices":["様々なモノにセンサや通信機能を内蔵し，インターネットに接続してデータを収集・活用する仕組み","AIが大量データから自動的に学習する技術","仮想空間と現実空間を高度に融合したシステム","ブロックチェーン技術で取引を分散管理する仕組み"],"answer":0,"explanation":"IoTはセンサ・通信機能を持つ多様なモノをインターネットに接続し、データを収集・分析・活用する概念。スマート家電・産業機器・自動車等に普及。"},{"id":62,"year":"一般知識","no":53,"category":"ストラテジ系","subcategory":"DX・IoT","q":"デジタルトランスフォーメーション(DX)の説明として，最も適切なものはどれか。","choices":["デジタル技術を活用して業務・サービス・ビジネスモデルを変革し競争上の優位性を確立すること","企業の基幹業務システムを統合的に管理するERPを導入すること","業務プロセスをソフトウェアロボットで自動化すること","AIを使って顧客サービスを自動化すること"],"answer":0,"explanation":"DXはデジタル技術で製品・サービス・ビジネスモデルを根本的に変革し競争優位を確立する取組み。単なるIT化・自動化とは異なる。"},{"id":63,"year":"一般知識","no":54,"category":"ストラテジ系","subcategory":"ビジネスシステム・AI","q":"ブロックチェーン技術の特徴として，最も適切なものはどれか。","choices":["分散型台帳で取引記録を改ざんしにくい形で管理する技術","中央サーバで全トランザクションを一元管理する技術","データを暗号化して安全に保存する技術","ビッグデータを高速に分析する技術"],"answer":0,"explanation":"ブロックチェーンはP2Pネットワーク上の分散型台帳技術。取引データをブロックに記録しチェーン状に連結。過去の記録の改ざんが極めて困難。仮想通貨(Bitcoin等)に利用。"},{"id":64,"year":"一般知識","no":55,"category":"ストラテジ系","subcategory":"ビジネスシステム・AI","q":"RPAの説明として，最も適切なものはどれか。","choices":["ソフトウェアロボットが人間の代わりに定型的な業務作業を自動で実行する技術","ロボットを物理的に制御してライン作業を自動化する技術","AIが自律的に判断して業務改善を提案する技術","クラウド上でアプリケーションをリモート実行する技術"],"answer":0,"explanation":"RPA(Robotic Process Automation)はソフトウェアロボットがPC上での定型操作(データ入力・コピペ・Web操作等)を自動化する技術。ホワイトカラーの事務作業効率化に活用。"},{"id":65,"year":"一般知識","no":56,"category":"ストラテジ系","subcategory":"ビジネスモデル","q":"サブスクリプションモデルの説明として，最も適切なものはどれか。","choices":["一定期間の利用権に対して定額料金を課金するビジネスモデル","商品購入時に一括で料金を支払うビジネスモデル","利用量に応じて料金を課金するビジネスモデル","商品を購入後に月払いで代金を支払うビジネスモデル"],"answer":0,"explanation":"サブスクリプションは月額・年額等の定額料金でサービスを継続利用できるモデル。Netflix・Spotify・Microsoft 365等が代表例。"},{"id":66,"year":"一般知識","no":57,"category":"ストラテジ系","subcategory":"法務・知的財産権","q":"著作権の保護期間として正しいのはどれか。","choices":["著作者の死後70年間","著作者の死後50年間","登録から20年間","公表から10年間"],"answer":0,"explanation":"著作権の保護期間は著作者の死後70年(法人著作の場合は公表後70年)。特許権=出願から20年、商標権=登録から10年(更新可能)。"},{"id":67,"year":"一般知識","no":58,"category":"ストラテジ系","subcategory":"法務・知的財産権","q":"商標権の説明として，最も適切なものはどれか。","choices":["商品やサービスを識別するブランド名・ロゴを保護する権利","発明・技術的アイデアを保護する権利","著作物の創作者の権利を保護する権利","物品の形状・デザインを保護する権利"],"answer":0,"explanation":"商標権は商品・サービスを識別するマーク(ブランド名・ロゴ等)を保護。登録が必要で存続期間は10年(更新可能)。特許権=発明、著作権=著作物、意匠権=デザイン。"},{"id":68,"year":"一般知識","no":59,"category":"ストラテジ系","subcategory":"法務・個人情報保護","q":"個人情報保護法において，個人データを第三者に提供する際に，原則として必要なことはどれか。","choices":["本人の同意","監督機関への届出","匿名化処理","暗号化処理"],"answer":0,"explanation":"個人情報保護法では個人データの第三者提供には原則として本人の事前同意が必要。オプトアウト方式での提供も条件付きで認められる。匿名加工情報は同意不要。"},{"id":69,"year":"一般知識","no":60,"category":"ストラテジ系","subcategory":"法務・セキュリティ関連法","q":"不正アクセス禁止法で禁止されている行為として，最も適切なものはどれか。","choices":["他人のIDとパスワードを使って許可なくコンピュータにアクセスする行為","自分のIDとパスワードを記憶する行為","フィッシングメールを受信した際に無視する行為","複数のサービスで同じパスワードを使う行為"],"answer":0,"explanation":"不正アクセス禁止法は他人のID・パスワード等を使った不正アクセス行為、およびIDやパスワードを正当な理由なく第三者に提供する行為を禁止。"},{"id":70,"year":"一般知識","no":61,"category":"ストラテジ系","subcategory":"企業活動・会計","q":"損益分岐点の説明として，最も適切なものはどれか。","choices":["売上高と総費用(固定費+変動費)が等しくなる売上高","変動費と固定費の合計が最小になる生産量","利益が最大になる販売価格","売上高に対する利益の割合"],"answer":0,"explanation":"損益分岐点は売上高=固定費+変動費となる点。これ以上売れると利益、未満だと損失。損益分岐点売上高=固定費÷(1-変動費率)で計算。"},{"id":71,"year":"一般知識","no":62,"category":"ストラテジ系","subcategory":"企業活動・会計","q":"流動比率の説明として，最も適切なものはどれか。","choices":["流動資産を流動負債で割った比率で，短期の支払い能力を示す","自己資本を総資産で割った比率で，財務的健全性を示す","売上高を総資産で割った比率で，資産の効率的利用度を示す","経常利益を売上高で割った比率で，収益性を示す"],"answer":0,"explanation":"流動比率=流動資産÷流動負債×100(%)。短期債務の返済能力を示す指標で200%以上が目安。自己資本比率=自己資本÷総資産。"},{"id":72,"year":"一般知識","no":63,"category":"ストラテジ系","subcategory":"経営組織","q":"マトリックス組織の特徴として，最も適切なものはどれか。","choices":["職能部門とプロジェクトの両方に所属し，複数の上司をもつ組織形態","意思決定権が現場レベルまで分散されている組織形態","職能ごとに部門を分け，専門性を高める組織形態","特定の製品・サービスごとに独立した組織単位を設ける形態"],"answer":0,"explanation":"マトリックス組織は機能別組織とプロジェクト組織を組み合わせた形態。社員は職能部門とプロジェクトの両方に所属し複数の指揮命令系統をもつ。専門性と柔軟性を両立できる。"},{"id":73,"year":"一般知識","no":64,"category":"ストラテジ系","subcategory":"企業活動","q":"ステークホルダの意味として，最も適切なものはどれか。","choices":["企業の活動に利害関係を持つすべての人や組織(株主・従業員・顧客・地域社会等)","企業の経営戦略を立案する経営幹部","企業に出資している株主だけを指す","システム開発プロジェクトの依頼者"],"answer":0,"explanation":"ステークホルダ(Stakeholder)は企業活動に利害関係を持つ全員。株主・従業員・顧客・取引先・債権者・地域社会・政府等を含む広い概念。"},{"id":74,"year":"一般知識","no":65,"category":"ストラテジ系","subcategory":"統計・データ分析","q":"データの中央値（メジアン）の説明として，正しいものはどれか。","choices":["データを昇順に並べたときに真ん中に位置する値","全データの合計をデータ数で割った値","最も多く現れる値","データの最大値と最小値の差"],"answer":0,"explanation":"中央値(メジアン)はデータを順に並べた中央の値。平均値(算術平均)=合計÷個数、最頻値(モード)=最多出現値、範囲=最大値－最小値。"},{"id":75,"year":"一般知識","no":66,"category":"ストラテジ系","subcategory":"法務・セキュリティ関連法","q":"GDPR(EU一般データ保護規則)に関する説明として，最も適切なものはどれか。","choices":["EU域内の個人データ保護に関する規則で，EU域外の企業にも適用されることがある","日本国内のみに適用される個人情報保護の規制","サイバー攻撃に対するEUの共同防衛規則","EUでのデータセンター設置に関する規制"],"answer":0,"explanation":"GDPRはEU居住者の個人データ保護を定めた規則。EU域外企業もEU居住者のデータを扱う場合は適用対象。違反時は全世界年間売上高の4%または2000万ユーロの高額制裁金。"},{"id":76,"year":"一般知識","no":67,"category":"マネジメント系","subcategory":"システム開発","q":"ユーザビリティ(usability)の説明として，最も適切なものはどれか。","choices":["特定のユーザが特定の目標を達成するために，有効性・効率性・満足度をもって使用できる度合い","システムの処理能力や応答速度の高さ","システムが障害なく稼動し続ける能力","システムへの不正アクセスを防ぐセキュリティ能力"],"answer":0,"explanation":"ユーザビリティ(ISO 9241-11)はユーザが特定の目的を達成する際の有効性・効率性・満足度の度合い。UI/UXデザインの重要な評価指標。"},{"id":77,"year":"一般知識","no":68,"category":"テクノロジ系","subcategory":"情報セキュリティ","q":"標的型攻撃の説明として，最も適切なものはどれか。","choices":["特定の組織や個人を狙い，巧みな手口でマルウェアに感染させたり情報を盗む攻撃","不特定多数を対象にウイルスを大量配布する攻撃","Webサーバに大量のリクエストを送りサービスを停止させる攻撃","管理者権限を奪取してシステム全体を乗っ取る攻撃"],"answer":0,"explanation":"標的型攻撃は特定の組織・個人を標的に、業務関連メールに見せかけたメールでマルウェア感染させる等の巧妙な手口を使う攻撃。不特定多数への攻撃とは異なる。"},{"id":78,"year":"一般知識","no":69,"category":"テクノロジ系","subcategory":"ネットワーク","q":"IPv6が普及した主な理由として，最も適切なものはどれか。","choices":["IPv4のアドレス空間(約43億個)が枯渇したため，より広大なアドレス空間を提供するため","IPv4より通信速度が大幅に向上したため","IPv4よりセキュリティが大幅に強化されたため","IPv4が技術的に古くなりサポートが終了したため"],"answer":0,"explanation":"IPv4は32ビット=約43億アドレス。インターネット普及でアドレス枯渇。IPv6は128ビット=約340澗(3.4×10³⁸)個で事実上無限のアドレスを提供。"},{"id":79,"year":"一般知識","no":70,"category":"ストラテジ系","subcategory":"社会・情報モラル","q":"情報モラルの観点から，SNSへの投稿に関して適切な行動はどれか。","choices":["他人の個人情報や写真を無断で投稿しない","匿名であれば誹謗中傷を投稿しても問題ない","フォロワーが多ければ著作権のある画像を投稿してよい","面白い情報であれば真偽確認なしに拡散してよい"],"answer":0,"explanation":"情報モラルとして他者のプライバシーを尊重し無断で個人情報・写真を公開しない。匿名でも誹謗中傷は名誉毀損・侮辱罪に該当。著作権画像の無断使用は違法。フェイクニュース拡散も問題。"},{"id":80,"year":"一般知識","no":71,"category":"マネジメント系","subcategory":"システム開発","q":"オブジェクト指向プログラミングの3大要素として，正しい組み合わせはどれか。","choices":["カプセル化・継承・ポリモーフィズム","変数・関数・クラス","入力・処理・出力","構造化・モジュール化・抽象化"],"answer":0,"explanation":"OOPの3大概念：カプセル化(データと処理をクラスに隠蔽)・継承(親クラスの特性を子クラスが引き継ぐ)・ポリモーフィズム(同じメッセージに異なる動作)。"}];
+const CATS=['すべて','ストラテジ系','マネジメント系','テクノロジ系'];
+let S={screen:'home',mode:'all',cat:'すべて',qs:[],cur:0,done:false,score:0,hist:[],wrong:[],t0:0};
+
+function filt(c){return c==='すべて'?Q:Q.filter(q=>q.category===c)}
+function shuf(a){return a.slice().sort(()=>Math.random()-.5)}
+
+function start(mode){
+  let pool=filt(S.cat);
+  if(mode==='wrong'){
+    pool=pool.filter(q=>S.wrong.includes(q.id));
+    if(!pool.length){alert('苦手問題がありません！先に通常モードで問題を解いてください。');return}
+  }
+  S.qs=shuf(pool).slice(0,mode==='quick'?20:pool.length);
+  S.cur=0;S.done=false;S.score=0;S.hist=[];S.t0=Date.now();S.mode=mode;S.screen='quiz';
+  render();
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function render(){
+  const app=document.getElementById('app');
+  if(S.screen==='home')app.innerHTML=home();
+  else if(S.screen==='quiz')app.innerHTML=quiz();
+  else app.innerHTML=result();
+}
+
+function home(){
+  const tot=filt(S.cat).length;
+  const done=S.hist.length;
+  const cor=S.hist.filter(h=>h.ok).length;
+  return `
+<div class="stats">
+  <div class="stat"><div class="v">${Q.length}</div><div class="l">総問題数</div></div>
+  <div class="stat"><div class="v">${done}</div><div class="l">解答済み</div></div>
+  <div class="stat"><div class="v">${S.wrong.length}</div><div class="l">苦手問題</div></div>
+  <div class="stat"><div class="v">${done?Math.round(cor/done*100):0}%</div><div class="l">累計正答率</div></div>
+</div>
+<div class="sec">📚 カテゴリ</div>
+<div class="filter-row">
+  ${CATS.map(c=>`<button class="fb ${S.cat===c?'on':''}" onclick="S.cat='${c}';render()">${c} (${filt(c).length}問)</button>`).join('')}
+</div>
+<div class="sec">🚀 モード選択</div>
+<div class="cards">
+  <div class="card" onclick="start('all')">
+    <div class="ic">📝</div><h3>全問チャレンジ</h3><p>${tot}問 すべて解く</p>
+  </div>
+  <div class="card" onclick="start('quick')">
+    <div class="ic">⚡</div><h3>クイックモード</h3><p>ランダム20問</p>
+  </div>
+  <div class="card" onclick="start('wrong')">
+    <div class="ic">💪</div><h3>苦手問題モード</h3><p>間違えた問題のみ (${S.wrong.length}問)</p>
+  </div>
+</div>
+<div class="sec">📖 出題範囲（シラバス6.3対応）</div>
+<div class="info-grid">
+  <div class="info-card ic-s"><b>📊 ストラテジ系 (28問)</b><br>法務・知的財産権<br>DX・IoT・AI・生成AI<br>経営戦略・SWOT・BSC・PPM<br>マーケティング・RPA・SaaS<br>個人情報保護・労働法規</div>
+  <div class="info-card ic-m"><b>⚙️ マネジメント系 (14問)</b><br>プロジェクトマネジメント<br>ウォーターフォール・アジャイル<br>スクラム・DevOps<br>ITIL・SLA<br>システム監査・PDCA</div>
+  <div class="info-card ic-t"><b>💻 テクノロジ系 (38問)</b><br>情報セキュリティ・暗号<br>ネットワーク・TCP/IP<br>データベース・SQL<br>ハードウェア・2進数・16進数<br>AI・クラウド・アルゴリズム</div>
+</div>`;
+}
+
+function quiz(){
+  if(S.cur>=S.qs.length){S.screen='result';return result()}
+  const q=S.qs[S.cur];
+  const tot=S.qs.length;
+  const pct=(S.cur/tot*100).toFixed(0);
+  const lb=['ア','イ','ウ','エ'];
+  return `
+<div class="stats">
+  <div class="stat"><div class="v">${S.cur+1}/${tot}</div><div class="l">問題</div></div>
+  <div class="stat"><div class="v">${S.score}</div><div class="l">正解数</div></div>
+  <div class="stat"><div class="v">${S.cur?Math.round(S.score/S.cur*100):0}%</div><div class="l">正答率</div></div>
+</div>
+<div class="pbar"><div class="pfill" style="width:${pct}%"></div></div>
+<div class="qcard">
+  <div class="meta">
+    <span class="bdg by">${esc(q.year)}</span>
+    <span class="bdg bc">${esc(q.category)}</span>
+    <span class="bdg bs">${esc(q.subcategory)}</span>
+  </div>
+  <div class="qno">問${q.no}</div>
+  <div class="qtxt">${esc(q.q)}</div>
+  <div class="choices" id="ch">
+    ${q.choices.map((c,i)=>`<button class="cb" id="c${i}" onclick="ans(${i})" ${S.done?'disabled':''}><b>${lb[i]}．</b> ${esc(c)}</button>`).join('')}
+  </div>
+  <div class="exp" id="ex"><b>✏️ 解説：</b><br>${esc(q.explanation)}</div>
+</div>
+<div class="navb" id="nb">
+  <button class="btn bs2" onclick="S.screen='home';render()">🏠 ホーム</button>
+</div>`;
+}
+
+function ans(i){
+  if(S.done)return;
+  S.done=true;
+  const q=S.qs[S.cur];
+  const ok=q.answer;
+  const lb=['ア','イ','ウ','エ'];
+  q.choices.forEach((_,j)=>{
+    const b=document.getElementById('c'+j);
+    if(!b)return;
+    b.disabled=true;
+    if(j===ok){b.classList.add('ok');b.innerHTML+=`<span class="albl ok2">✓ 正解</span>`}
+    else if(j===i&&i!==ok){b.classList.add('ng');b.innerHTML+=`<span class="albl ng2">✗ 不正解</span>`}
+  });
+  const correct=i===ok;
+  if(correct){S.score++;S.wrong=S.wrong.filter(id=>id!==q.id)}
+  else if(!S.wrong.includes(q.id))S.wrong.push(q.id);
+  S.hist.push({q,ok:correct,chosen:i});
+  const ex=document.getElementById('ex');
+  if(ex)ex.classList.add('show');
+  const nb=document.getElementById('nb');
+  if(nb){const nx=document.createElement('button');nx.className='btn bp';nx.textContent='次の問題 →';nx.onclick=next;nb.appendChild(nx)}
+}
+
+function next(){S.cur++;S.done=false;render();window.scrollTo(0,0)}
+
+function result(){
+  const tot=S.qs.length;
+  const pct=Math.round(S.score/tot*100);
+  const el=Math.round((Date.now()-S.t0)/1000);
+  const mn=Math.floor(el/60),sc=el%60;
+  let gr,gc;
+  if(pct>=80){gr='合格圏内 🎉';gc='ga'}
+  else if(pct>=60){gr='もう少し！💪';gc='gb'}
+  else if(pct>=40){gr='要復習 📚';gc='gc'}
+  else{gr='基礎から見直し 🔄';gc='gd'}
+  const cs={};
+  S.hist.forEach(h=>{
+    const c=h.q.category;
+    if(!cs[c])cs[c]={ok:0,t:0};
+    cs[c].t++;if(h.ok)cs[c].ok++;
+  });
+  return `
+<div class="res">
+  <h2 style="color:#1e3a5f">📊 結果発表</h2>
+  <div class="rscore">${S.score}/${tot}</div>
+  <div class="rgrade ${gc}">${gr}</div>
+  <p style="color:#888;margin:8px 0">正答率: ${pct}% ｜ 所要時間: ${mn}分${sc}秒</p>
+  <div style="text-align:left;margin:18px 0">
+    <div class="sec">📈 カテゴリ別正答率</div>
+    ${Object.entries(cs).map(([c,st])=>{
+      const p=Math.round(st.ok/st.t*100);
+      const col=p>=80?'#4CAF50':p>=60?'#2196F3':p>=40?'#ff9800':'#f44336';
+      return `<div class="cbar"><span style="min-width:130px">${c}</span><div class="cfill" style="width:${p}%;background:${col}"></div><span>${st.ok}/${st.t} (${p}%)</span></div>`;
+    }).join('')}
+  </div>
+  <div class="navb" style="justify-content:center">
+    <button class="btn bp" onclick="start(S.mode)">🔄 もう一度</button>
+    <button class="btn bs2" onclick="start('wrong')">💪 苦手問題</button>
+    <button class="btn bs2" onclick="S.screen='home';render()">🏠 ホーム</button>
+  </div>
+</div>`;
+}
+render();
+</script>
+</body>
+</html>
